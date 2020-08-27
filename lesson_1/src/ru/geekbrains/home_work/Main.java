@@ -23,6 +23,16 @@ public class Main {
         System.out.println(checkNumbers(2,18));
 
         positiveOrNegative(5);
+
+        System.out.println(isNegativeNumber(-1));
+    }
+
+    static boolean isNegativeNumber (int number) {
+        if (number < 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     static void positiveOrNegative(int number) {
