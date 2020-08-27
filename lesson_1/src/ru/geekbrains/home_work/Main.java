@@ -21,6 +21,16 @@ public class Main {
         System.out.println(calculate(1,2,3,4));
 
         System.out.println(checkNumbers(2,18));
+
+        positiveOrNegative(5);
+    }
+
+    static void positiveOrNegative(int number) {
+        if (number >= 0) {
+            System.out.println("Positive");
+        } else {
+            System.out.println("Negative");
+        }
     }
 
     static boolean checkNumbers(int number_1, int number_2){
