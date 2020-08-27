@@ -19,6 +19,16 @@ public class Main {
         boolean logic = setBoolean(true);
 
         System.out.println(calculate(1,2,3,4));
+
+        System.out.println(checkNumbers(2,18));
+    }
+
+    static boolean checkNumbers(int number_1, int number_2){
+        if (number_1 + number_2 >= 10 && number_1 + number_2 <= 20) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     static double calculate(float a, float b, float c, float d) {
