@@ -17,6 +17,12 @@ public class Main {
 
         // логический
         boolean logic = setBoolean(true);
+
+        System.out.println(calculate(1,2,3,4));
+    }
+
+    static double calculate(float a, float b, float c, float d) {
+        return a * (b + (c / d));
     }
 
     static byte setByte(Byte b) {
