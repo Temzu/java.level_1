@@ -27,6 +27,16 @@ public class Main {
         System.out.println(isNegativeNumber(-1));
 
         helloName("Artem");
+
+        isLeapYearOrNo(1600);
+    }
+
+    static void isLeapYearOrNo(int year) {
+        if (year % 4 == 0 && year % 100 != 0 || year % 4 == 0 && year % 400 == 0) {
+            System.out.println("Високосный год");
+        } else {
+            System.out.println("Невисокосный год");
+        }
     }
 
     static void helloName(String name) {
