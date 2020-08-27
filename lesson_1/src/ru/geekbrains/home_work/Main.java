@@ -25,6 +25,12 @@ public class Main {
         positiveOrNegative(5);
 
         System.out.println(isNegativeNumber(-1));
+
+        helloName("Artem");
+    }
+
+    static void helloName(String name) {
+        System.out.println("Hello " + name + "!");
     }
 
     static boolean isNegativeNumber (int number) {
