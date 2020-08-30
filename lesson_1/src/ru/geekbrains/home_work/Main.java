@@ -2,21 +2,6 @@ package ru.geekbrains.home_work;
 
 public class Main {
     public static void main(String[] args) {
-        // целочисленные
-        byte b = setByte((byte) 1);
-        short s = setShort((short) 2);
-        int integer = setInt(3);
-        long l = setLong(4);
-
-        // с плавающей точкой
-        float f = setFloat((float) 1.2);
-        double d = setDouble(12.3);
-
-        // символьный
-        char c = setChar('a');
-
-        // логический
-        boolean logic = setBoolean(true);
 
         System.out.println(calculate(1,2,3,4));
 
@@ -29,6 +14,21 @@ public class Main {
         helloName("Artem");
 
         isLeapYearOrNo(1600);
+
+        outputAllVariables((byte) 12, (short) 13, 125, 2312312312l, 12123.12f, 123213213.123123, 'A', true);
+    }
+
+
+
+    static void outputAllVariables(byte b, short s, int integer, long l, float f, double d, char c, boolean logic) {
+        System.out.println("Переменная типа byte: " + b);
+        System.out.println("Переменная типа short: " + s);
+        System.out.println("Переменная типа int: " + integer);
+        System.out.println("Переменная типа long: " + l);
+        System.out.println("Переменная типа float: " + f);
+        System.out.println("Переменная типа double: " + d);
+        System.out.println("Переменная типа char: " + c);
+        System.out.println("Переменная типа boolean: " + logic);
     }
 
     static void isLeapYearOrNo(int year) {
@@ -71,35 +71,5 @@ public class Main {
         return a * (b + (c / d));
     }
 
-    static byte setByte(Byte b) {
-        return b;
-    }
 
-    static short setShort(Short s) {
-        return s;
-    }
-
-    static int setInt(int integer) {
-        return integer;
-    }
-
-    static long setLong(long l) {
-        return l;
-    }
-
-    static float setFloat(Float f) {
-        return f;
-    }
-
-    static double setDouble(double d) {
-        return d;
-    }
-
-    static char setChar(char c) {
-        return c;
-    }
-
-    static boolean setBoolean(boolean logic) {
-        return logic;
-    }
 }
