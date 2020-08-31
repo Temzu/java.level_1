@@ -2,6 +2,7 @@ package ru.geekbrains.home_work;
 
 public class Main {
     public static void main(String[] args) {
+<<<<<<< HEAD
         char d = 'c';
         int b = 2;
         float a = (b * 2.4f) / 2;
@@ -22,6 +23,22 @@ public class Main {
         isLeapYearOrNot(1600);
 
         outputAllVariables((byte) 12, (short) 13, 125, 2312312312L, 12123.12f, 123213213.123123, 'A', true);
+=======
+
+        System.out.println(calculate(1, 2, 3, 4));
+
+        System.out.println(checkNumbers(2, 18));
+
+        positiveOrNegative(5);
+
+        System.out.println(isNegativeNumber(-1));
+
+        outputGreeting("Artem");
+
+        isLeapYearOrNot(1600);
+
+        outputAllVariables((byte) 12, (short) 13, 125, 2312312312l, 12123.12f, 123213213.123123, 'A', true);
+>>>>>>> master
     }
 
     /**
@@ -81,7 +98,11 @@ public class Main {
     /**
      * Checks numbers to see if they are in the range from 10 to 20 then returns result
      */
+<<<<<<< HEAD
     static boolean isBetween10And20(int number_1, int number_2) {
+=======
+    static boolean checkNumbers(int number_1, int number_2) {
+>>>>>>> master
         if ((number_1 + number_2 >= 10) && (number_1 + number_2 <= 20)) {
             return true;
         } else {
