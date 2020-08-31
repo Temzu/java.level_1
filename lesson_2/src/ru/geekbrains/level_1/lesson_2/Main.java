@@ -25,6 +25,10 @@ public class Main {
         System.out.println("Задание 4");
         fillTheDiagonalElementsOfAnArray(arrayForFourthTask);
         System.out.println();
+
+        System.out.println("Задание 5");
+        findTheMaxAndMinEl(arrayForThirdTask);
+        System.out.println();
     }
 
     /**
@@ -106,6 +110,26 @@ public class Main {
         outputTwoDimensionalArrayToConsole(array);
     }
 
+    /** Fifth task
+     * Finds the maximum and minimum element of an array
+     */
+    static void findTheMaxAndMinEl(int[] array) {
+        int max = array[0];
+        int min = array[0];
 
+        for (int i: array){
+            if (i > max) {
+                max = i;
+            }
+            if (i < min) {
+                min = i;
+            }
+        }
+        outputArrayToConsole(array);
+        System.out.println(
+                "Максимальный элемент равен: " + max +
+                        "\nМинимальный элемен равен: " + min
+        );
+    }
 
 }
