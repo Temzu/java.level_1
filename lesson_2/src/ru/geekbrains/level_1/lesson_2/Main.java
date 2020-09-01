@@ -36,7 +36,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Задание 7");
-        shiftArrayElements(arrayForSixthTask, -3);
+        shiftArrayElements(arrayForSixthTask, 5);
         System.out.println();
     }
 
@@ -125,7 +125,6 @@ public class Main {
     static void findTheMaxAndMinEl(int[] array) {
         int max = array[0];
         int min = array[0];
-
         for (int i: array){
             if (i > max) {
                 max = i;
@@ -150,13 +149,10 @@ public class Main {
         int leftSum = 0;
         for (int i = 0; i < array.length - 1; i++) {
             int rightSum = 0;
-
             leftSum += array[i];
-
             for (int j = i + 1; j < array.length; j++) {
                 rightSum += array[j];
             }
-
             if (leftSum == rightSum) {
                 check = true;
             }
@@ -169,7 +165,6 @@ public class Main {
      */
     static void shiftArrayElements(int[] array, int n) {
         outputArrayToConsole(array);
-
         if (n > 0) {
             shiftArrayElToTheRight(array, n);
         } else if (n < 0){
