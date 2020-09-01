@@ -7,6 +7,7 @@ public class Main {
 	    int[] arrayForSecondTask = new int[8];
 	    int[] arrayForThirdTask = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
 	    int[][] arrayForFourthTask = new int[10][10];
+	    int[] arrayForSixthTask = {1, 2, 3, 6, 1, 2, 9, 1, 1};
 
         System.out.println("Задание 1");
         outputArrayToConsole(arrayForFirstTask);
@@ -28,6 +29,10 @@ public class Main {
 
         System.out.println("Задание 5");
         findTheMaxAndMinEl(arrayForThirdTask);
+        System.out.println();
+
+        System.out.println("Задание 6");
+        System.out.println(checkBalance(arrayForSixthTask));
         System.out.println();
     }
 
@@ -86,7 +91,7 @@ public class Main {
     }
 
     /** Third task
-     * Multiplies all elements of an array less than 6 by 2
+     * Multiplies all elements of an array less than 6 by 2.
      */
     static void multiplyElementsOfAnArrayBy2(int[] array) {
         for (int i = 0; i < array.length; i++) {
@@ -98,7 +103,7 @@ public class Main {
     }
 
     /** Forth task
-     * Fills the diagonal elements of a two-dimensional array with 1
+     * Fills the diagonal elements of a two-dimensional array with 1.
      */
     static void fillTheDiagonalElementsOfAnArray(int[][] array) {
         for (int i = 0; i < array.length; i++) {
@@ -111,7 +116,7 @@ public class Main {
     }
 
     /** Fifth task
-     * Finds the maximum and minimum element of an array
+     * Finds the maximum and minimum element of an array.
      */
     static void findTheMaxAndMinEl(int[] array) {
         int max = array[0];
@@ -130,6 +135,29 @@ public class Main {
                 "Максимальный элемент равен: " + max +
                         "\nМинимальный элемен равен: " + min
         );
+    }
+
+    /** Sixth task
+     * Returns true if there is a spot in the array
+     * where the sum of the left and right sides of the array are equal.
+     */
+    static boolean checkBalance(int[] array){
+        boolean check = false;
+        int leftSum = 0;
+        for (int i = 0; i < array.length - 1; i++) {
+            int rightSum = 0;
+
+            leftSum += array[i];
+
+            for (int j = i + 1; j < array.length; j++) {
+                rightSum += array[j];
+            }
+
+            if (leftSum == rightSum) {
+                check = true;
+            }
+        }
+        return check;
     }
 
 }
