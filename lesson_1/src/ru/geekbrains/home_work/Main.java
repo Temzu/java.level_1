@@ -6,7 +6,7 @@ public class Main {
         int b = 2;
         float a = (b * 2.4f) / 2;
         System.out.println(++d);
-        switch (a)
+        
 
 
         System.out.println(calculate(1, 2, 3, 4));

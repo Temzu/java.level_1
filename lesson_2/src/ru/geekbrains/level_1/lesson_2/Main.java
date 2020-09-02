@@ -84,12 +84,8 @@ public class Main {
      * Fills an array with multiples of 3, but first element is 0.
      */
     static void fillAnArrayWithMultiplesOf3(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            if (i == 0) {
-                array[i] = 0;
-            } else {
-                array[i] = array[i - 1] + 3;
-            }
+        for (int i = 1; i < array.length; i++) {
+            array[i] = array[i - 1] + 3;
         }
         outputArrayToConsole(array);
     }
@@ -180,7 +176,7 @@ public class Main {
      */
     static void shiftArrayElToTheRight(int[] array, int n) {
         int buff;
-        System.out.println("* Смещение элементов массива вправо на " + n + "эл.");
+        System.out.println("* Смещение элементов массива вправо на " + n + " эл.");
         for (int m = 0; m < n; m++){
             for (int i = array.length - 1; i > 0; i--) {
                 buff = array[i];
