@@ -72,7 +72,7 @@ public class Main {
     static void replace0And1(int[] array) {
         boolean logic = true;
         for (int i = 0; i < array.length; i++) {
-            array[i] = (1 - array[i]) * 1;
+            array[i] = (1 - array[i]);
         }
         outputArrayToConsole(array);
     }
@@ -136,7 +136,6 @@ public class Main {
      * where the sum of the left and right sides of the array are equal.
      */
     static boolean checkBalance(int[] array){
-        boolean check = false;
         int leftSum = 0;
         for (int i = 0; i < array.length - 1; i++) {
             int rightSum = 0;
@@ -145,10 +144,10 @@ public class Main {
                 rightSum += array[j];
             }
             if (leftSum == rightSum) {
-                check = true;
+                return true;
             }
         }
-        return check;
+        return false;
     }
 
     /** Seventh task
