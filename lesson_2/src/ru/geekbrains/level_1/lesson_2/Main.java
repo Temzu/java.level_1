@@ -70,12 +70,9 @@ public class Main {
      * Then outputs all elements of the array.
      */
     static void replace0And1(int[] array) {
+        boolean logic = true;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == 1) {
-                array[i] = 0;
-            } else {
-                array[i] = 1;
-            }
+            array[i] = (1 - array[i]) * 1;
         }
         outputArrayToConsole(array);
     }
@@ -108,9 +105,7 @@ public class Main {
     static void fillTheDiagonalElementsOfAnArray(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             array[i][i] = 1;
-        }
-        for (int j = array.length - 1; j >= 0; j--) {
-            array[j][array.length - j - 1] = 1;
+            array[i][array.length - i - 1] = 1;
         }
         outputTwoDimensionalArrayToConsole(array);
     }
