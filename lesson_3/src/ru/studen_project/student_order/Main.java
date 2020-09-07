@@ -7,9 +7,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic",
-                "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
-        guessWordGameTwo(words);
+        Scanner scanner = new Scanner(System.in);
+        boolean a = scanner.hasNextInt();
+        System.out.println(scanner.nextInt());
+
+        
     }
 
     /**
@@ -19,6 +21,18 @@ public class Main {
      *
      *
      */
+    static int getNumberFromConsole() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            if (scanner.hasNextInt()) {
+                return scanner.nextInt();
+            }
+
+            System.out.println("Введите целое число!");
+            scanner.nextLine();
+        } while (true);
+    }
 
     //Задание 1
     static void guessNumberGameOne() {
@@ -26,16 +40,21 @@ public class Main {
         Random random = new Random();
         int attempts = 3;
         int randomNumber = random.nextInt(10);
+        int userNumber;
+        String lessOrGreater;
         for (int i = 0; i <= attempts; i++) {
             Scanner scanner = new Scanner(System.in);
+            userNumber = scanner.nextInt();
             if (attempts == i) {
                 System.out.println("Ты проиграл :(");
                 askUser(scanner);
-            } else if (randomNumber == scanner.nextInt()) {
+            } else if (randomNumber == userNumber) {
                 System.out.println("Ты выиграл!!!");
                 askUser(scanner);
             } else {
+                lessOrGreater = (userNumber > randomNumber) ? "больше" : "меньше";
                 System.out.println("Не угадал -_-    Осталось " + (attempts - i - 1) + " попытки");
+                System.out.println("Ваше число " + lessOrGreater + " загаданного");
             }
         }
     }
