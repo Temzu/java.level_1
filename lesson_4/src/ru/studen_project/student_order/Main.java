@@ -25,7 +25,7 @@ public class Main {
                 break;
             }
 
-            aiTurn();
+            aiStep();
             if (isWin()) {
                 System.out.println("Победа ИИ");
                 break;
@@ -86,15 +86,57 @@ public class Main {
     }
 
     // ИИ делает ход
-    static void aiTurn() {
+    static void aiStep() {
+        int maxSumIndexesColumn = aiCheckSumPlayerColumns()[0];
+        int maxSumIndexesString = aiCheckSumPlayerStrings()[0];
+        int maxSumIndexesDiagonal = aiCheckSumPlayerDiagonals()[0];
+        checkConditionForStep(maxSumIndexesColumn,maxSumIndexesString,maxSumIndexesDiagonal);
+    }
+
+    // Проверяет условия, при которых возможно сделать шаг.
+    static void checkConditionForStep(int maxSumIndexesColumn, int maxSumIndexesString, int maxSumIndexesDiagonal) {
+        boolean checkColumnInputRight = isCoordinatesInputRight(aiCheckSumPlayerColumns()[1], aiCheckSumPlayerColumns()[2]);
+        boolean checkStringInputRight = isCoordinatesInputRight(aiCheckSumPlayerStrings()[1], aiCheckSumPlayerStrings()[2]);
+        boolean checkDiagonalInputRight = isCoordinatesInputRight(aiCheckSumPlayerDiagonals()[1], aiCheckSumPlayerDiagonals()[2]);
         int x;
         int y;
-        do {
-            x = random.nextInt(SIZE);
-            y = random.nextInt(SIZE);
-        } while (!isCoordinatesInputRight(y, x));
-        map[y][x] = DOT_0;
-        System.out.println("ИИ походил " + (y + 1) + " " + (x + 1));
+        if (maxSumIndexesDiagonal >= maxSumIndexesColumn && maxSumIndexesDiagonal >= maxSumIndexesString && checkDiagonalInputRight) {
+
+            makeStepAndOutput(aiCheckSumPlayerDiagonals()[1], aiCheckSumPlayerDiagonals()[2]);
+
+        } else if (maxSumIndexesString >= maxSumIndexesColumn && maxSumIndexesString >= maxSumIndexesDiagonal && checkStringInputRight) {
+
+            makeStepAndOutput(aiCheckSumPlayerStrings()[1], aiCheckSumPlayerStrings()[2]);
+
+        } else if (maxSumIndexesColumn >= maxSumIndexesString && maxSumIndexesColumn >= maxSumIndexesDiagonal && checkColumnInputRight){
+
+            makeStepAndOutput(aiCheckSumPlayerColumns()[1], aiCheckSumPlayerColumns()[2]);
+
+        } else if (checkColumnInputRight) {
+
+            makeStepAndOutput(aiCheckSumPlayerColumns()[1], aiCheckSumPlayerColumns()[2]);
+
+        } else if (checkDiagonalInputRight) {
+
+            makeStepAndOutput(aiCheckSumPlayerStrings()[1], aiCheckSumPlayerStrings()[2]);
+
+        } else if (checkStringInputRight) {
+            makeStepAndOutput(aiCheckSumPlayerStrings()[1], aiCheckSumPlayerStrings()[2]);
+        } else {
+            do {
+                y = random.nextInt(SIZE);
+                x = random.nextInt(SIZE);
+            } while (!isCoordinatesInputRight(y, x));
+            map[y][x] = DOT_0;
+            System.out.println("ИИ походил " + (y + 1) + " " + (x + 1));
+            outputMap();
+        }
+    }
+
+    // Выводит данные о шаге ИИ и производит непосредтсвенное выполнение этого шага
+    static void makeStepAndOutput(int yPosition, int xPosition) {
+        map[yPosition][xPosition] = DOT_0;
+        System.out.println("ИИ походил " + (yPosition + 1) + " " + (xPosition + 1));
         outputMap();
     }
 
@@ -121,7 +163,6 @@ public class Main {
         if (checkWinnerDiagonals()) {
             return true;
         }
-
         return false;
     }
 
@@ -187,7 +228,8 @@ public class Main {
             sumIndexRightDiagonal += map[i + 1][SIZE - i - 2];
 
             if ((ifSumIndexRightDiagonal / (i + 1) == map[i + 1][SIZE - i - 2])
-                    && (ifSumIndexRightDiagonal / (i + 1) != DOT_EMPTY)) {
+                    &&
+                    (ifSumIndexRightDiagonal / (i + 1) != DOT_EMPTY)) {
                 ifSumIndexRightDiagonal += map[i + 1][SIZE - i - 2];
             }
             if (sumIndexRightDiagonal == ifSumIndexRightDiagonal && i == SIZE - 2){
@@ -195,5 +237,205 @@ public class Main {
             }
         }
         return false;
+    }
+
+    //
+    static int[] aiCheckSumPlayerColumns() {
+        int sumIndex;
+        int maxSum = 0;
+        int indexColumn = 0;
+        int[] allParameters = new int[3];
+        for (int i = 0; i < SIZE; i++) {
+            sumIndex = 0;
+            for (int j = 0; j < SIZE; j++) {
+                if (map[j][i] == DOT_X) {
+                    sumIndex += map[j][i];
+                }
+            }
+            if (sumIndex > maxSum) {
+                maxSum = sumIndex;
+                indexColumn = i;
+            }
+        }
+        allParameters[0] = maxSum;
+        allParameters[2] = indexColumn;
+        return aiCheckIndexForColumn(allParameters, indexColumn);
+    }
+
+    static int[] aiCheckIndexForColumn(int[] allParameters, int indexColumn) {
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][indexColumn] == DOT_X && i == 0) {
+                if (map[i + 1][indexColumn] == DOT_EMPTY) {
+                    allParameters[1] = i + 1;
+                    break;
+                }
+            }
+            if (map[i][indexColumn] == DOT_X && i != 0 && i != SIZE - 1) {
+                if (map[i + 1][indexColumn] == DOT_EMPTY) {
+                    allParameters[1] = i + 1;
+                    break;
+                } else if (map[i - 1][indexColumn] == DOT_EMPTY){
+                    allParameters[1] = i - 1;
+                    break;
+                }
+            }
+            if (map[i][indexColumn] == DOT_X && i == SIZE - 1) {
+                if (map[i - 1][indexColumn] == DOT_EMPTY) {
+                    allParameters[1] = i - 1;
+                    break;
+                }
+            }
+        }
+        return allParameters;
+    }
+
+    static int[] aiCheckSumPlayerStrings() {
+        int sumIndex;
+        int maxSum = 0;
+        int indexString = 0;
+        int[] allParameters = new int[3];
+        for (int i = 0; i < SIZE; i++) {
+            sumIndex = 0;
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == DOT_X) {
+                    sumIndex += map[i][j];
+                }
+            }
+            if (sumIndex > maxSum) {
+                maxSum = sumIndex;
+                indexString = i;
+            }
+        }
+        allParameters[0] = maxSum;
+        allParameters[1] = indexString;
+        return aiCheckIndexForString(allParameters, indexString);
+    }
+
+    static int[] aiCheckIndexForString(int[] allParameters, int indexString) {
+        for (int i = 0; i < SIZE; i++) {
+            if (map[indexString][i] == DOT_X && i == 0) {
+                if (map[indexString][i + 1] == DOT_EMPTY) {
+                    allParameters[2] = i + 1;
+                    break;
+                }
+            }
+            if (map[indexString][i] == DOT_X && i != 0 && i != SIZE - 1) {
+                if (map[indexString][i + 1] == DOT_EMPTY) {
+                    allParameters[2] = i + 1;
+                    break;
+                } else if (map[indexString][i - 1] == DOT_EMPTY){
+                    allParameters[2] = i - 1;
+                    break;
+                }
+            }
+            if (map[indexString][i] == DOT_X && i == SIZE - 1) {
+                if (map[indexString][i - 1] == DOT_EMPTY) {
+                    allParameters[2] = i - 1;
+                    break;
+                }
+            }
+        }
+        return allParameters;
+    }
+
+    static int[] aiCheckSumPlayerDiagonals() {
+        int sumIndexLeftDiagonal = 0;
+        int sumIndexRightDiagonal = 0;
+        int maxSum = 0;
+        int indexRightDiagonal = 0;
+        int indexLeftDiagonal = 0;
+        int[] allParameters = new int[3];
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][i] == DOT_X) {
+                sumIndexLeftDiagonal += map[i][i];
+            }
+            if (map[i][SIZE - i - 1] == DOT_X) {
+                sumIndexRightDiagonal += map[i][SIZE - i - 1];
+            }
+
+            if (sumIndexLeftDiagonal > maxSum) {
+                maxSum = sumIndexLeftDiagonal;
+                indexLeftDiagonal = i;
+            } else if (sumIndexRightDiagonal > maxSum) {
+                maxSum = sumIndexRightDiagonal;
+                indexRightDiagonal = i;
+            }
+        }
+        allParameters[0] = maxSum;
+        if (sumIndexLeftDiagonal > sumIndexRightDiagonal) {
+            return aiCheckIndexesForDiagonals(allParameters, indexLeftDiagonal, -1);
+        } else {
+            return aiCheckIndexesForDiagonals(allParameters, -1, indexRightDiagonal);
+        }
+    }
+
+    static int[] aiCheckIndexesForDiagonals(int[] allParameters, int indexLeftDiagonal, int indexRightDiagonal) {
+        if (indexRightDiagonal == -1) {
+            return aiCheckIndexesForLeftDiagonal(allParameters);
+        } else {
+            return aiCheckIndexesForRightDiagonal(allParameters);
+        }
+    }
+
+    static int[] aiCheckIndexesForLeftDiagonal(int[] allParameters) {
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][i] == DOT_X && i == 0) {
+                if (map[i + 1][i + 1] == DOT_EMPTY) {
+                    allParameters[1] = i + 1;
+                    allParameters[2] = i + 1;
+                    break;
+                }
+            }
+            if (map[i][i] == DOT_X && i != 0 && i != SIZE - 1) {
+                if (map[i + 1][i + 1] == DOT_EMPTY) {
+                    allParameters[1] = i + 1;
+                    allParameters[2] = i + 1;
+                    break;
+                } else if (map[i - 1][i - 1] == DOT_EMPTY){
+                    allParameters[1] = i - 1;
+                    allParameters[2] = i - 1;
+                    break;
+                }
+            }
+            if (map[i][i] == DOT_X && i == SIZE - 1) {
+                if (map[i - 1][i - 1] == DOT_EMPTY) {
+                    allParameters[1] = i - 1;
+                    allParameters[2] = i - 1;
+                    break;
+                }
+            }
+        }
+        return allParameters;
+    }
+
+    static int[] aiCheckIndexesForRightDiagonal(int[] allParameters) {
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][SIZE - i - 1] == DOT_X && i == 0) {
+                if (map[i + 1][SIZE - i - 2] == DOT_EMPTY) {
+                    allParameters[1] = i + 1;
+                    allParameters[2] = SIZE - i - 2;
+                    break;
+                }
+            }
+            if (map[i][SIZE - i - 1] == DOT_X && i != 0 && i != SIZE - 1) {
+                if (map[i + 1][SIZE - i - 2] == DOT_EMPTY) {
+                    allParameters[1] = i + 1;
+                    allParameters[2] = SIZE - i - 2;
+                    break;
+                } else if (map[i - 1][SIZE - i] == DOT_EMPTY){
+                    allParameters[1] = i - 1;
+                    allParameters[2] = SIZE - i;
+                    break;
+                }
+            }
+            if (map[i][SIZE - i - 1] == DOT_X && i == SIZE - 1) {
+                if (map[i - 1][SIZE - i + 1] == DOT_EMPTY) {
+                    allParameters[1] = i - 1;
+                    allParameters[2] = SIZE - i + 1;
+                    break;
+                }
+            }
+        }
+        return allParameters;
     }
 }
