@@ -7,4 +7,9 @@ public class Cat extends Animal {
         setRunningDistance(random.nextInt(100) + 150);
         setSwimmingDistance(0);
     }
+
+    @Override
+    void swim(float obstacleLength) {
+        System.out.println("Cat cannot swim!");
+    }
 }

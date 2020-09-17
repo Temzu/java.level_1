@@ -14,4 +14,6 @@ public class Main {
         dog.run(500);
         dog.swim(10);
     }
+
+
 }

@@ -6,8 +6,8 @@ public class Animal {
     public Random random = new Random();
     private String name;
     private float jumpHeight;
-    private int runningDistance;
-    private int swimmingDistance;
+    private float runningDistance;
+    private float swimmingDistance;
 
     public Animal(String name) {
         this.name = name;
@@ -25,29 +25,19 @@ public class Animal {
         this.swimmingDistance = swimmingDistance;
     }
 
-    void run(int obstacleLength) {
-        if (obstacleLength > runningDistance) {
-            System.out.println(name + " run: " + false);
-        } else {
-            System.out.println(name + " run: " + true);
-        }
+    void run(float obstacleLength) {
+        System.out.println(name + " run: " + check(obstacleLength));
     }
 
-    void swim(int obstacleLength) {
-        if (swimmingDistance == 0) {
-            System.out.println(name + " swim: The cat cannot swim.");
-        } else if (obstacleLength > swimmingDistance){
-            System.out.println(name + " swim: " + false);
-        } else {
-            System.out.println(name + " swim: " + true);
-        }
+    void swim(float obstacleLength) {
+        System.out.println(name + " swim: " + check(obstacleLength));
     }
 
     void jump(float obstacleHeight) {
-        if (obstacleHeight > jumpHeight) {
-            System.out.println(name + " jump: " + false);
-        } else {
-            System.out.println(name + " jump: " + true);
-        }
+        System.out.println(name + " jump: " + check(obstacleHeight));
+    }
+
+    private boolean check(float a) {
+        return a > jumpHeight ? false : true;
     }
 }
