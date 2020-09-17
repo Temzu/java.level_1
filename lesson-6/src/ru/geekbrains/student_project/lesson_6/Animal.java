@@ -37,7 +37,7 @@ public class Animal {
         System.out.println(name + " jump: " + check(obstacleHeight));
     }
 
-    private boolean check(float a) {
-        return a > jumpHeight ? false : true;
+    private String check(float a) {
+        return a > jumpHeight ? "false" : "true";
     }
 }
