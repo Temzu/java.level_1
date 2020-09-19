@@ -24,5 +24,4 @@ public class Plate {
         food += value;
     }
 
-
 }
