@@ -147,18 +147,23 @@ public class MyWindow extends JFrame {
         private void checkClearButton(ActionEvent e) {
             if (e.getSource() == bClear) {
                 numbers = "";
+                numberR = 0;
+                numberL = 0;
+                operatingNumbers = 0;
                 textField.setText(numbers);
+                nullifyLogicVariables();
             }
         }
 
         //Проверяет нажатие кнопок-операций
         private void checkOperatingButtons(ActionEvent e) {
             if (e.getSource() == bPlus) {
-                logicForOperatingButtons();
                 isSignPlus = true;
                 isSignMinus = false;
                 isSignDivision = false;
                 isSignMultiplication = false;
+                logicForOperatingButtons();
+
             }
             if (e.getSource() == bMinus) {
                 isSignPlus = false;
@@ -168,18 +173,20 @@ public class MyWindow extends JFrame {
                 logicForOperatingButtons();
             }
             if (e.getSource() == bMultiplication) {
-                logicForOperatingButtons();
                 isSignPlus = false;
                 isSignMinus = false;
                 isSignDivision = false;
                 isSignMultiplication = true;
+                logicForOperatingButtons();
+
             }
             if (e.getSource() == bDivision) {
-                logicForOperatingButtons();
                 isSignPlus = false;
                 isSignMinus = false;
                 isSignDivision = true;
                 isSignMultiplication = false;
+                logicForOperatingButtons();
+
             }
         }
 
