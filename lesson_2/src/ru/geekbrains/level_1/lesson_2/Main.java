@@ -1,5 +1,7 @@
 package ru.geekbrains.level_1.lesson_2;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -8,36 +10,39 @@ public class Main {
 	    int[] arrayForThirdTask = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
 	    int[][] arrayForFourthTask = new int[10][10];
 	    int[] arrayForSixthTask = {1, 2, 3, 6, 1, 2, 9, 1, 1};
+	    int[] array = {1, 2, 3, 4, 5};
 
-        System.out.println("Задание 1");
-        outputArrayToConsole(arrayForFirstTask);
-        replace0And1(arrayForFirstTask);
-        System.out.println();
-
-        System.out.println("Задание 2");
-        fillAnArrayWithMultiplesOf3(arrayForSecondTask);
-        System.out.println();
-
-        System.out.println("Задание 3");
-        outputArrayToConsole(arrayForThirdTask);
-        multiplyElementsOfAnArrayBy2(arrayForThirdTask);
-        System.out.println();
-
-        System.out.println("Задание 4");
-        fillTheDiagonalElementsOfAnArray(arrayForFourthTask);
-        System.out.println();
-
-        System.out.println("Задание 5");
-        findTheMaxAndMinEl(arrayForThirdTask);
-        System.out.println();
-
-        System.out.println("Задание 6");
-        System.out.println(checkBalance(arrayForSixthTask));
-        System.out.println();
-
-        System.out.println("Задание 7");
-        shiftArrayElements(arrayForSixthTask, 5);
-        System.out.println();
+//        System.out.println("Задание 1");
+//        outputArrayToConsole(arrayForFirstTask);
+//        replace0And1(arrayForFirstTask);
+//        System.out.println();
+//
+//        System.out.println("Задание 2");
+//        fillAnArrayWithMultiplesOf3(arrayForSecondTask);
+//        System.out.println();
+//
+//        System.out.println("Задание 3");
+//        outputArrayToConsole(arrayForThirdTask);
+//        multiplyElementsOfAnArrayBy2(arrayForThirdTask);
+//        System.out.println();
+//
+//        System.out.println("Задание 4");
+//        fillTheDiagonalElementsOfAnArray(arrayForFourthTask);
+//        System.out.println();
+//
+//        System.out.println("Задание 5");
+//        findTheMaxAndMinEl(arrayForThirdTask);
+//        System.out.println();
+//
+//        System.out.println("Задание 6");
+//        System.out.println(checkBalance(arrayForSixthTask));
+//        System.out.println();
+//
+//        System.out.println("Задание 7");
+//        shiftArrayElements(arrayForSixthTask, 5);
+//        System.out.println();
+        shiftArrayElements(array, 1);
+        System.out.println(Arrays.toString(array));
     }
 
     /**
@@ -154,45 +159,13 @@ public class Main {
      * Shifts array elements by specified number of characters.
      */
     static void shiftArrayElements(int[] array, int n) {
-        outputArrayToConsole(array);
-        if (n > 0) {
-            shiftArrayElToTheRight(array, n);
-        } else if (n < 0){
-            shiftArrayElToTheLeft(array, n);
-        } else {
-            System.out.println("! Смещение не произведено !");
-        }
-        outputArrayToConsole(array);
-    }
-
-    /** Seventh task
-     * Shifts array elements to the right. Needs for method "shiftArrayElements"
-     */
-    static void shiftArrayElToTheRight(int[] array, int n) {
+        boolean direction = n < 0;
+        n = direction ? array.length + n : n;
         int buff;
-        System.out.println("* Смещение элементов массива вправо на " + n + " эл.");
-        for (int m = 0; m < n; m++){
-            for (int i = array.length - 1; i > 0; i--) {
-                buff = array[i];
-                array[i] = array[i - 1];
-                array[i - 1] = buff;
-            }
+        for (int i = 0; i < n; i++) {
+            buff = array[array.length - 1];
+            System.arraycopy(array, 0, array, 1, array.length - 1);
+            array[0] = buff;
         }
     }
-
-    /** Seventh task
-     * Shifts array elements to the left. Needs for method "shiftArrayElements"
-     */
-    static void shiftArrayElToTheLeft(int[] array, int n) {
-        int buff;
-        System.out.println("* Смещение элементов массива влево на " + Math.abs(n) + " эл.");
-        for (int m = 0; m < Math.abs(n); m++){
-            for (int i = 0; i < array.length - 1; i++) {
-                buff = array[i];
-                array[i] = array[i + 1];
-                array[i + 1] = buff;
-            }
-        }
-    }
-
 }
