@@ -160,7 +160,10 @@ public class Main {
      */
     static void shiftArrayElements(int[] array, int n) {
         boolean direction = n < 0;
-        n = direction ? array.length + n : n;
+        if (direction) n = -n;
+        n %= array.length;
+        if (n == 0) return;
+        n = direction ? array.length - n : n;
         int buff;
         for (int i = 0; i < n; i++) {
             buff = array[array.length - 1];
